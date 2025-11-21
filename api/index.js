@@ -1,32 +1,31 @@
 export const config = {
-  runtime: "nodejs18.x"
+  runtime: "nodejs"
 };
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
 
+/* ----------- READ RAW BODY (VERCEL FIX) ----------- */
 async function readBody(req) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     let body = "";
-    req.on("data", chunk => {
-      body += chunk.toString();
-    });
+    req.on("data", chunk => (body += chunk.toString()));
     req.on("end", () => {
       try {
-        resolve(JSON.parse(body));
-      } catch (e) {
+        resolve(JSON.parse(body || "{}"));
+      } catch {
         resolve({});
       }
     });
-    req.on("error", reject);
   });
 }
 
+/* ----------- SUPABASE HELPER ----------- */
 async function sb(table, body) {
   return fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
     method: "POST",
     headers: {
-      "Content-Type":"application/json",
+      "Content-Type": "application/json",
       "apikey": SUPABASE_KEY,
       "Authorization": `Bearer ${SUPABASE_KEY}`,
       "Prefer": "return=minimal"
@@ -35,6 +34,7 @@ async function sb(table, body) {
   });
 }
 
+/* ----------- API HANDLER ----------- */
 export default async function handler(req, res) {
   try {
     if (req.method !== "POST") {
@@ -48,25 +48,27 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing action" });
     }
 
-    // --- ACTION HANDLERS ---
+    const ts = new Date().toISOString();
+
+    /* --- ACTIONS --- */
 
     if (action === "play") {
-      await sb("plays", { user_id: userId, ts: new Date().toISOString() });
+      await sb("plays", { user_id: userId, ts });
       return res.json({ ok: true });
     }
 
     if (action === "openTasks") {
-      await sb("actions_log", { user_id: userId, action: "openTasks", ts: new Date().toISOString() });
+      await sb("actions_log", { user_id: userId, action, ts });
       return res.json({ ok: true });
     }
 
     if (action === "openAddTask") {
-      await sb("actions_log", { user_id: userId, action: "openAddTask", ts: new Date().toISOString() });
+      await sb("actions_log", { user_id: userId, action, ts });
       return res.json({ ok: true });
     }
 
     if (action === "openSwap") {
-      await sb("actions_log", { user_id: userId, action: "openSwap", ts: new Date().toISOString() });
+      await sb("actions_log", { user_id: userId, action, ts });
       return res.json({ ok: true });
     }
 
@@ -74,7 +76,7 @@ export default async function handler(req, res) {
       await sb("swaps", {
         user_id: userId,
         amount_score: data.amount,
-        ts: new Date().toISOString()
+        ts
       });
       return res.json({ ok: true });
     }
@@ -83,7 +85,7 @@ export default async function handler(req, res) {
       await sb("joins", {
         user_id: userId,
         ticket_left: data.ticketLeft,
-        ts: new Date().toISOString()
+        ts
       });
       return res.json({ ok: true });
     }
@@ -93,7 +95,7 @@ export default async function handler(req, res) {
         user_id: userId,
         ticket_left: data.ticketLeft,
         ads_left: data.adsLeft,
-        ts: new Date().toISOString()
+        ts
       });
       return res.json({ ok: true });
     }
@@ -102,7 +104,7 @@ export default async function handler(req, res) {
       await sb("community_tasks_joins", {
         user_id: userId,
         task_name: data.taskName,
-        ts: new Date().toISOString()
+        ts
       });
       return res.json({ ok: true });
     }
@@ -112,13 +114,13 @@ export default async function handler(req, res) {
         user_id: userId,
         emoji: data.emoji,
         total_score: data.totalScore,
-        ts: new Date().toISOString()
+        ts
       });
       return res.json({ ok: true });
     }
 
     if (action === "back") {
-      await sb("actions_log", { user_id: userId, action: "back", ts: new Date().toISOString() });
+      await sb("actions_log", { user_id: userId, action, ts });
       return res.json({ ok: true });
     }
 
