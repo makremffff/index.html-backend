@@ -44,11 +44,6 @@
     .users-btn.selected{background:#00ff88;color:#000}
     #noTicketPopup{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:none;justify-content:center;align-items:center}
     #noTicketPopup>div{background:#1e1e1e;padding:20px 30px;border-radius:12px;text-align:center;box-shadow:0 0 20px #000;color:#fff;font-size:18px}
-    #tasksOnly{position:fixed;inset:0;background:#111;display:none;flex-direction:column;align-items:center;padding:40px 12px 80px;gap:20px;z-index:100;overflow-y:auto;touch-action:pan-y}
-    .task-card{display:flex;align-items:center;gap:12px;background:#1e1e1e;padding:14px 20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.35);width:90%;max-width:400px}
-    .task-card .icon{font-size:28px}.task-card .txt{flex:1;font-size:18px}
-    .btnJoin,.adBtn3d{padding:6px 16px;font-size:15px;border:none;border-radius:6px;background:linear-gradient(145deg,#fff,#d1d1d1);color:#000;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;box-shadow:4px 4px 8px #111,-4px -4px 8px #333}
-    .btnJoin:active,.adBtn3d:active{transform:translateZ(-10px);box-shadow:inset 2px 2px 4px #111,inset -2px -2px 4px #333}
     #backBtn{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);padding:8px 24px;font-size:15px;border:none;border-radius:6px;background:linear-gradient(145deg,#fff,#d1d1d1);color:#000;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;box-shadow:6px 6px 12px #222,-6px -6px 12px #444;z-index:200;display:none}
     #backBtn:active{transform:translateX(-50%) translateZ(-12px);box-shadow:inset 4px 4px 8px #222,inset -4px -4px 8px #444}
     .food{position:absolute;font-size:40px;cursor:pointer;user-select:none;animation:fall 3s linear forwards}
@@ -167,7 +162,7 @@
   ticketEl.textContent=ticketLeft;
 
   /* helper to call single endpoint */
-  function api(body){ return fetch('/api',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); }
+  function api(body){ return fetch('/api/index',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); }
 
   /* fill user data */
   function fillUserData(){
