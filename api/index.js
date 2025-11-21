@@ -1,6 +1,9 @@
-// =========================
-//  CONFIG
-// =========================
+export const config = {
+  api: {
+    bodyParser: true
+  }
+};
+
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
 
@@ -17,53 +20,43 @@ async function sb(table, body) {
   });
 }
 
-// =========================
-//  HANDLER
-// =========================
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-
-  const { action, userId, ...data } = req.body;
-
   try {
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Method Not Allowed" });
+    }
 
-    // =========================
-    //  PLAY
-    // =========================
+    const { action, userId, ...data } = req.body || {};
+
+    if (!action) {
+      return res.status(400).json({ error: "Missing action" });
+    }
+
+    // PLAY
     if (action === "play") {
       await sb("plays", { user_id: userId, ts: new Date().toISOString() });
       return res.json({ ok: true });
     }
 
-    // =========================
-    //  OPEN TASKS
-    // =========================
+    // OPEN TASKS
     if (action === "openTasks") {
       await sb("actions_log", { user_id: userId, action: "openTasks", ts: new Date().toISOString() });
       return res.json({ ok: true });
     }
 
-    // =========================
-    //  OPEN ADD TASK
-    // =========================
+    // OPEN ADD TASK
     if (action === "openAddTask") {
       await sb("actions_log", { user_id: userId, action: "openAddTask", ts: new Date().toISOString() });
       return res.json({ ok: true });
     }
 
-    // =========================
-    //  OPEN SWAP
-    // =========================
+    // OPEN SWAP
     if (action === "openSwap") {
       await sb("actions_log", { user_id: userId, action: "openSwap", ts: new Date().toISOString() });
       return res.json({ ok: true });
     }
 
-    // =========================
-    //  SWAP SCORE → USDT
-    // =========================
+    // SWAP
     if (action === "swap") {
       await sb("swaps", {
         user_id: userId,
@@ -73,9 +66,7 @@ export default async function handler(req, res) {
       return res.json({ ok: true });
     }
 
-    // =========================
-    //  JOIN CHANNEL
-    // =========================
+    // JOIN CHANNEL
     if (action === "joinChannel") {
       await sb("joins", {
         user_id: userId,
@@ -85,9 +76,7 @@ export default async function handler(req, res) {
       return res.json({ ok: true });
     }
 
-    // =========================
-    //  WATCH AD
-    // =========================
+    // WATCH AD
     if (action === "watchAd") {
       await sb("ads", {
         user_id: userId,
@@ -98,9 +87,7 @@ export default async function handler(req, res) {
       return res.json({ ok: true });
     }
 
-    // =========================
-    //  JOIN COMMUNITY TASK
-    // =========================
+    // JOIN COMMUNITY TASK
     if (action === "joinCommunityTask") {
       await sb("community_tasks_joins", {
         user_id: userId,
@@ -110,9 +97,7 @@ export default async function handler(req, res) {
       return res.json({ ok: true });
     }
 
-    // =========================
-    //  COLLECT FOOD
-    // =========================
+    // COLLECT
     if (action === "collect") {
       await sb("collects", {
         user_id: userId,
@@ -123,19 +108,16 @@ export default async function handler(req, res) {
       return res.json({ ok: true });
     }
 
-    // =========================
-    //  BACK
-    // =========================
+    // BACK
     if (action === "back") {
       await sb("actions_log", { user_id: userId, action: "back", ts: new Date().toISOString() });
       return res.json({ ok: true });
     }
 
-    // UNKNOWN ACTION
     return res.status(400).json({ error: "Unknown action" });
 
   } catch (err) {
-    console.log("ERR:", err);
+    console.error("SERVER ERROR:", err);
     return res.status(500).json({ error: "server error" });
   }
 }
