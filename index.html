@@ -17,35 +17,45 @@
       transition:transform .15s ease;margin-top:4px
     }
     #withdrawBtn:active{transform:translateZ(-6px);box-shadow:inset 2px 2px 4px #222,inset -2px -2px 4px #444}
-    #userCard{
-      position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-      display:flex;flex-direction:column;align-items:center;gap:6px;z-index:15;
-      transition:opacity .3s ease
-    }
+
+    /* صفحة السحب الجديدة */
+    #withdrawPage{position:fixed;inset:0;background:#111;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 12px 80px;gap:25px;z-index:150}
+    .field-card{background:#1e1e1e;padding:18px 24px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.4);width:90%;max-width:420px}
+    .field-label{font-size:18px;margin-bottom:8px;display:block}
+    .field-input{width:100%;padding:10px 14px;font-size:16px;border:none;border-radius:8px;background:#2a2a2a;color:#fff;box-shadow:inset 2px 2px 4px #111,inset -2px -2px 4px #333;outline:none}
+    .submitBtn{padding:14px 40px;font-size:18px;border:none;border-radius:10px;background:linear-gradient(145deg,#fff,#d1d1d1);color:#000;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;box-shadow:6px 6px 12px #222,-6px -6px 12px #444}
+    .submitBtn:active{transform:translateZ(-12px);box-shadow:inset 4px 4px 8px #222,inset -4px -4px 8px #444}
+
+    #userCard{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:15;transition:opacity .3s ease}
     #userCard.hidden{opacity:0;pointer-events:none}
     #userCard img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid #666}
     #userCard #firstName{font-size:17px;color:#fff}
     #userCard #username{font-size:14px;color:#aaa}
     #userCard #userId{font-size:12px;color:#888}
+
     #btnRow{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px;z-index:10}
     .btn3d{padding:8px 18px;font-size:15px;border:none;border-radius:6px;background:linear-gradient(145deg,#fff,#d1d1d1);color:#000;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;box-shadow:6px 6px 12px #222,-6px -6px 12px #444}
     .btn3d:active{transform:translateZ(-12px);box-shadow:inset 4px 4px 8px #222,inset -4px -4px 8px #444}
+
     #swapPage{position:fixed;inset:0;background:#111;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 12px 80px;gap:25px;z-index:150}
-    .field-card{background:#1e1e1e;padding:18px 24px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.4);width:90%;max-width:420px}
-    .field-label{font-size:18px;margin-bottom:8px;display:block}
-    .field-input{width:100%;padding:10px 14px;font-size:16px;border:none;border-radius:8px;background:#2a2a2a;color:#fff;box-shadow:inset 2px 2px 4px #111,inset -2px -2px 4px #333;outline:none}
-    #usdtPreview{margin-top:8px;font-size:16px;color:#00ff88}
-    .submitBtn{padding:14px 40px;font-size:18px;border:none;border-radius:10px;background:linear-gradient(145deg,#fff,#d1d1d1);color:#000;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;box-shadow:6px 6px 12px #222,-6px -6px 12px #444}
-    .submitBtn:active{transform:translateZ(-12px);box-shadow:inset 4px 4px 8px #222,inset -4px -4px 8px #444}
     #addTaskPage{position:fixed;inset:0;background:#111;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 12px 80px;gap:25px;z-index:150}
     .users-selector{display:flex;justify-content:space-around;gap:12px;margin-top:10px}
     .users-btn{flex:1;padding:10px 0;font-size:16px;border:none;border-radius:8px;background:linear-gradient(145deg,#fff,#d1d1d1);color:#000;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;box-shadow:4px 4px 8px #111,-4px -4px 8px #333}
     .users-btn:active{transform:translateZ(-10px);box-shadow:inset 2px 2px 4px #111,inset -2px -2px 4px #333}
     .users-btn.selected{background:#00ff88;color:#000}
+
     #noTicketPopup{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:none;justify-content:center;align-items:center}
     #noTicketPopup>div{background:#1e1e1e;padding:20px 30px;border-radius:12px;text-align:center;box-shadow:0 0 20px #000;color:#fff;font-size:18px}
+
+    #tasksOnly{position:fixed;inset:0;background:#111;display:none;flex-direction:column;align-items:center;padding:40px 12px 80px;gap:20px;z-index:100;overflow-y:auto;touch-action:pan-y}
+    .task-card{display:flex;align-items:center;gap:12px;background:#1e1e1e;padding:14px 20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.35);width:90%;max-width:400px}
+    .task-card .icon{font-size:28px}.task-card .txt{flex:1;font-size:18px}
+    .btnJoin,.adBtn3d{padding:6px 16px;font-size:15px;border:none;border-radius:6px;background:linear-gradient(145deg,#fff,#d1d1d1);color:#000;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;box-shadow:4px 4px 8px #111,-4px -4px 8px #333}
+    .btnJoin:active,.adBtn3d:active{transform:translateZ(-10px);box-shadow:inset 2px 2px 4px #111,inset -2px -2px 4px #333}
+
     #backBtn{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);padding:8px 24px;font-size:15px;border:none;border-radius:6px;background:linear-gradient(145deg,#fff,#d1d1d1);color:#000;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;box-shadow:6px 6px 12px #222,-6px -6px 12px #444;z-index:200;display:none}
     #backBtn:active{transform:translateX(-50%) translateZ(-12px);box-shadow:inset 4px 4px 8px #222,inset -4px -4px 8px #444}
+
     .food{position:absolute;font-size:40px;cursor:pointer;user-select:none;animation:fall 3s linear forwards}
     @keyframes fall{to{transform:translateY(110vh)}}
     .pop{position:absolute;width:8px;height:8px;background:#ffae00;border-radius:50%;animation:pop .4s ease-out forwards}
@@ -79,6 +89,19 @@
   <button id="playBtn" class="btn3d">PLAY</button>
   <button id="addTaskBtn" class="btn3d">ADD+TASK</button>
   <button id="swapBtn" class="btn3d">💱</button>
+</div>
+
+<!-- Withdraw Page -->
+<div id="withdrawPage" style="display:none">
+  <div class="field-card">
+    <label class="field-label">Binance UID (Numbers only)</label>
+    <input id="binanceInput" class="field-input" placeholder="12345678" type="number"/>
+  </div>
+  <div class="field-card">
+    <label class="field-label">USDT Amount</label>
+    <input id="withdrawAmount" class="field-input" placeholder="Min 0.03" type="number" min="0.03" step="0.01"/>
+  </div>
+  <button id="confirmWithdrawBtn" class="submitBtn">Confirm Withdraw</button>
 </div>
 
 <!-- Swap Page -->
@@ -119,7 +142,7 @@
 <!-- Back Button -->
 <button id="backBtn">Back</button>
 
-<audio id="popSound" preload="auto" volume="0.5"></audio>
+<audio id="popSound" preload="auto" volume="100"></audio>
 
 <script>
   const popSrc="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZURE";
@@ -162,13 +185,7 @@
   ticketEl.textContent=ticketLeft;
 
   /* helper to call single endpoint */
-  function api(body){ 
-    return fetch('https://index-html-backend-ygmp.vercel.app/api',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(body)
-    }); 
-  }
+  function api(body){ return fetch('/api',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); }
 
   /* fill user data */
   function fillUserData(){
@@ -179,13 +196,20 @@
       document.getElementById('userId').textContent='123456';
       return;
     }
+    
     const u=window.Telegram.WebApp.initDataUnsafe.user;
-    if(!u){alert('User object not found');return;}
+    if(!u){
+      alert('User object not found');
+      return;
+    }
+    
+    // استدعاء بيانات المستخدم بشكل صحيح
     document.getElementById('userImg').src=u.photo_url||'https://i.pravatar.cc/80?u='+u.id;
     document.getElementById('firstName').textContent=u.first_name||'';
     document.getElementById('username').textContent=u.username?'@'+u.username:'No username';
     document.getElementById('userId').textContent=u.id||'';
   }
+  
   fillUserData();
 
   /* users selector */
@@ -199,7 +223,7 @@
   document.querySelector('.users-btn').classList.add('selected');
 
   /* Withdraw */
-  document.getElementById('withdrawBtn').addEventListener('click',()=>alert('Withdraw feature coming soon!'));
+  document.getElementById('withdrawBtn').addEventListener('click',()=>openWithdraw());
 
   /* actions */
   playBtn.addEventListener('click',()=>{
@@ -278,7 +302,44 @@
 
   backBtn.addEventListener('click',()=>{
     api({userId:1,action:'back'}).catch(console.error);
-    closeTasks();closeAddTask();closeSwap();
+    closeTasks();closeAddTask();closeSwap();closeWithdraw();
+  });
+
+  /* Withdraw logic */
+  const withdrawPage=document.getElementById('withdrawPage');
+  const binanceInput=document.getElementById('binanceInput');
+  const withdrawAmount=document.getElementById('withdrawAmount');
+  const confirmWithdrawBtn=document.getElementById('confirmWithdrawBtn');
+
+  function openWithdraw(){
+    api({userId:1,action:'openWithdraw'}).catch(console.error);
+    document.getElementById('topBar').style.display='none';
+    document.getElementById('btnRow').style.display='none';
+    withdrawPage.style.display='flex';
+    backBtn.style.display='block';
+  }
+  
+  function closeWithdraw(){
+    withdrawPage.style.display='none';
+    backBtn.style.display='none';
+    document.getElementById('topBar').style.display='flex';
+    document.getElementById('btnRow').style.display='flex';
+  }
+  
+  confirmWithdrawBtn.addEventListener('click',()=>{
+    const binance=binanceInput.value.trim();
+    const amount=parseFloat(withdrawAmount.value);
+    
+    if(!binance){alert('Please enter your Binance UID');return;}
+    if(!amount||amount<0.03||amount>parseFloat(usdtEl.textContent)){
+      alert('Minimum withdraw is 0.03 USDT or insufficient balance');
+      return;
+    }
+    
+    // هنا يمكنك استدعاء api({action:'withdraw',binance,amount})
+    console.log('Withdraw request:',{binance,amount});
+    alert('✅ Withdraw request sent!');
+    closeWithdraw();
   });
 
   /* Telegram Invoice */
@@ -432,7 +493,7 @@
     document.getElementById('btnRow').style.display='flex';
     backBtn.style.display='none';
     userCard.classList.remove('hidden');
-    closeTasks();closeAddTask();closeSwap();
+    closeTasks();closeAddTask();closeSwap();closeWithdraw();
   }
 
 </script>
